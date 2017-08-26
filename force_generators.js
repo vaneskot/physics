@@ -21,6 +21,20 @@ function UpliftGenerator(origin, size, uplift) {
   };
 }
 
+// f = G * m1 * m2 / r^2
+function ParticleGravityGenerator(G, originalParticle) {
+  return function(particle, dt) {
+    var force =
+        vectorDiff(originalParticle.position, particle.position);
+    var lengthSquared = force.lengthSquared();
+    var forceCoefficient =
+        G * particle.mass * originalParticle.mass / lengthSquared;
+    force.multiplyScalar(forceCoefficient / Math.sqrt(lengthSquared));
+    particle.addForce(force);
+  }
+}
+
 module.exports = {
   Uplift : UpliftGenerator,
+  ParticleGravity : ParticleGravityGenerator
 };
