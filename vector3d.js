@@ -23,6 +23,12 @@ class Vector3d {
     this.z += d * vector.z;
   }
 
+  multiplyScalar(d) {
+    this.x *= d;
+    this.y *= d;
+    this.z *= d;
+  }
+
   length() {
     return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
   }

@@ -15,8 +15,8 @@ var lastUpdateTime;
 var gravity = new Vector3d(0, 100, 0);
 
 class ExampleParticle extends Particle {
-  constructor(position, speed, color, radius) {
-    super(position, speed, gravity);
+  constructor(position, velocity, mass, damping, color, radius) {
+    super(position, velocity, gravity, mass, damping);
     this.color = color;
     this.radius = radius;
   }
@@ -42,10 +42,22 @@ function loadGame() {
 
   physics = new PhysicsSystem();
   physics.addParticle(new ExampleParticle(
-      new Vector3d(50, 300), new Vector3d(100, -200), 'rgb(0, 0, 200)', 12));
+      new Vector3d(50, 300), new Vector3d(100, -200), 10, 1., 'rgb(0, 0, 150)',
+      12));
+  physics.addParticle(new ExampleParticle(
+      new Vector3d(50, 300), new Vector3d(100, -200), 10, 0.95, 'rgb(0, 0, 200)',
+      12));
 
   physics.addParticle(new ExampleParticle(
-      new Vector3d(300, 300), new Vector3d(0, -150), 'rgb(0, 100, 200)', 12));
+      new Vector3d(300, 300), new Vector3d(0, -150), 20, 1., 'rgb(0, 100, 200)',
+      12));
+  physics.addParticle(new ExampleParticle(
+      new Vector3d(300, 300), new Vector3d(0, -150), 20, 0.90,
+      'rgb(0, 150, 200)', 12));
+
+  physics.addParticle(new ExampleParticle(
+      new Vector3d(400, 300), new Vector3d(0, -150), null, 0.90,
+      'rgb(0, 150, 200)', 12));
 
   lastUpdateTime = Date.now() / 1000;
   setInterval(update, 17);
