@@ -2,9 +2,19 @@
 
 class Vector3d {
   constructor(x, y, z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    this.x = x ? x : 0;
+    this.y = y ? y : 0;
+    this.z = z ? z : 0;
+  }
+
+  clear() {
+    this.x = 0;
+    this.y = 0;
+    this.z = 0;
+  }
+
+  copy() {
+    return new Vector3d(this.x, this.y, this.z);
   }
 
   equals(other) {
@@ -43,7 +53,7 @@ class Vector3d {
   }
 }
 
-module.exports = {
+var publicAPI = {
   Vector3d: Vector3d,
   vectorProductLength: function(a, b) {
     return a.x * b.y - a.y * b.x;
@@ -63,5 +73,15 @@ module.exports = {
 
   scalarVectorMultiply: function(scalar, vector) {
     return new Vector3d(scalar * vector.x, scalar * vector.y);
+  },
+
+  distance: function(left, right) {
+    return publicAPI.vectorDiff(left, right).length();
+  },
+
+  distanceSquared: function(left, right) {
+    return publicAPI.vectorDiff(left, right).lengthSquared();
   }
 };
+
+module.exports = publicAPI;
