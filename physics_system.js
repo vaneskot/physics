@@ -16,6 +16,7 @@ class PhysicsSystem {
   }
 
   integrate(dt) {
+    this.particles.forEach(particle => { particle.updateForces(dt); });
     this.particles.forEach(particle => { particle.integrate(dt); });
   }
 }

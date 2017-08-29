@@ -19,10 +19,6 @@ class Particle {
     if (this.inverseMass <= 0.)
       return;
 
-    this.updateForces(dt);
-
-    this.position.addScaledVector(dt, this.velocity);
-
     var acceleration = this.acceleration.copy();
     acceleration.addScaledVector(this.inverseMass, this.forceAccumulator);
 
@@ -30,6 +26,8 @@ class Particle {
 
     if (this.damping !== 1.)
       this.velocity.multiplyScalar(Math.pow(this.damping, dt));
+
+    this.position.addScaledVector(dt, this.velocity);
 
     this.clearForces();
   }

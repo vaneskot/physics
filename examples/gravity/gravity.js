@@ -43,24 +43,33 @@ function loadGame() {
 
   physics = new PhysicsSystem();
 
-  var planet = new ExampleParticle(
-      new Vector3d(300, 300), new Vector3d(0, 0), 150000, 1., 'rgb(200, 0, 0)',
+  let planet = new ExampleParticle(
+      new Vector3d(250, 250), new Vector3d(0, 0), 150000, 1., 'rgb(200, 0, 0)',
       30);
-  var planetGravityGenerator = ForceGenerators.ParticleGravity(6.67408, planet);
   physics.addParticle(planet);
 
-  var particle1 = new ExampleParticle(
-      new Vector3d(100, 300), new Vector3d(0, -70), 10, 0.998, 'rgb(0, 0, 150)',
+  let particle1 = new ExampleParticle(
+      new Vector3d(100, 250), new Vector3d(0, -80), 20, 1., 'rgb(0, 100, 200)',
       12);
-  particle1.addForceGenerator(planetGravityGenerator);
-
+  let particle2 = new ExampleParticle(
+      new Vector3d(150, 250), new Vector3d(0, -100), 10, 1., 'rgb(0, 0, 200)',
+      12);
   physics.addParticle(particle1);
-
-  var particle2 = new ExampleParticle(
-      new Vector3d(200, 300), new Vector3d(0, -100), 10, 0.985, 'rgb(0, 0, 200)',
-      12);
-  particle2.addForceGenerator(planetGravityGenerator);
   physics.addParticle(particle2);
+
+  let G = 6.67408;
+  let planetGravityGenerator = ForceGenerators.ParticleGravity(G, planet);
+  let particle1GravityGenerator = ForceGenerators.ParticleGravity(G, particle1);
+  let particle2GravityGenerator = ForceGenerators.ParticleGravity(G, particle2);
+
+  particle1.addForceGenerator(planetGravityGenerator);
+  particle1.addForceGenerator(particle2GravityGenerator);
+
+  particle2.addForceGenerator(planetGravityGenerator);
+  particle2.addForceGenerator(particle1GravityGenerator);
+
+  planet.addForceGenerator(particle1GravityGenerator);
+  planet.addForceGenerator(particle2GravityGenerator);
 
   lastUpdateTime = Date.now() / 1000;
   setInterval(update, 17);
