@@ -17,6 +17,10 @@ class Vector3d {
     return new Vector3d(this.x, this.y, this.z);
   }
 
+  toArray() {
+    return [this.x, this.y, this.z];
+  }
+
   equals(other) {
     return this.x === other.x && this.y === other.y && this.z === other.z;
   }
@@ -25,6 +29,12 @@ class Vector3d {
     this.x += vector.x;
     this.y += vector.y;
     this.z += vector.z;
+  }
+
+  subtractVector(vector) {
+    this.x -= vector.x;
+    this.y -= vector.y;
+    this.z -= vector.z;
   }
 
   addScaledVector(d, vector) {
@@ -49,7 +59,7 @@ class Vector3d {
 
   normalized() {
     var d = 1 / this.length();
-    return scalarVectorMultiply(d, this);
+    return publicAPI.scalarVectorMultiply(d, this);
   }
 }
 

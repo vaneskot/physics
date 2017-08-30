@@ -34,7 +34,32 @@ function ParticleGravityGenerator(G, originalParticle) {
   }
 }
 
+function ParticleSpring(originalParticle, springConstant, restLength) {
+  return function(particle, dt) {
+    var force =
+        vectorDiff(originalParticle.position, particle.position);
+    var magnitude = force.length();
+    force.multiplyScalar(1. / magnitude);
+    magnitude = springConstant * Math.abs(magnitude - restLength);
+    force.multiplyScalar(magnitude);
+    particle.addForce(force);
+  }
+}
+
+function AnchoredSpring(position, springConstant, restLength) {
+  return function(particle, dt) {
+    var force = vectorDiff(position, particle.position);
+    var magnitude = force.length();
+    force.multiplyScalar(1. / magnitude);
+    magnitude = springConstant * Math.abs(magnitude - restLength);
+    force.multiplyScalar(magnitude);
+    particle.addForce(force);
+  }
+}
+
 module.exports = {
   Uplift : UpliftGenerator,
-  ParticleGravity : ParticleGravityGenerator
+  ParticleGravity : ParticleGravityGenerator,
+  ParticleSpring : ParticleSpring,
+  AnchoredSpring : AnchoredSpring
 };
