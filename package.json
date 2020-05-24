@@ -1,0 +1,32 @@
+{
+  "name": "physics",
+  "version": "0.0.0",
+  "description": "Toy physics engine.",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ballistics": "sh examples/build.sh browserify ballistics",
+    "build:flying_particles": "sh examples/build.sh browserify flying_particles",
+    "build:gravity": "sh examples/build.sh browserify gravity",
+    "build:springs": "sh examples/build.sh browserify springs",
+    "build:vectors": "sh examples/build.sh browserify vectors",
+    "build": "npm run build:ballistics && npm run build:flying_particles && npm run build:gravity && npm run build:springs && npm run build:vectors",
+    "watch:ballistics": "sh examples/build.sh watchify ballistics",
+    "watch:flying_particles": "sh examples/build.sh watchify flying_particles",
+    "watch:gravity": "sh examples/build.sh watchify gravity",
+    "watch:springs": "sh examples/build.sh watchify springs",
+    "watch:vectors": "sh examples/build.sh watchify vectors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaneskot/physics.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaneskot/physics/issues"
+  },
+  "homepage": "https://github.com/vaneskot/physics#readme"
+}
